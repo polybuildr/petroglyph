@@ -12,7 +12,7 @@ To set up petroglyph yourself, use the following directory structure (or modify 
 
     /blog-directory
     |-- blog
-|   |-- css
+    |-- css
     |   |   |-- main.css
     |   |   |-- normalize.css
     |   |   `-- prism.css
