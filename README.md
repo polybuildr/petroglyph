@@ -5,7 +5,7 @@ Petroglyph is a a static blog generator written in Python. (Tested on 2.7.6). A 
 
 Put your posts in the `/posts` directory with a `.md` extension. Each post's title will be used as the post's slug when the blog is generated.
 
-To generate the blog, go to the directory which containts Petroglyph and run it using `python petroglyph`.
+To generate the blog, go to the directory which contains Petroglyph and run it using `python petroglyph`.
 
 ##Manual Setup
 To set up petroglyph yourself, use the following directory structure (or modify config.py):
