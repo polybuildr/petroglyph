@@ -10,9 +10,11 @@ watcher = Watcher()
 reader = Reader()
 writer = Writer()
 
-changed_files = watcher.get_changed_posts()
+changed_files = watcher.get_posts_meta(only_changed = True)
 for post in reader.read_posts(changed_files):
     writer.write_post(post)
 
-writer.update_homepage(reader.read_posts(watcher.get_posts_list()))
+all_posts = reader.read_posts(watcher.get_posts_meta())
+
+writer.update_homepage(all_posts)
 watcher.update_posts_meta()

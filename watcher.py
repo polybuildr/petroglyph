@@ -61,6 +61,9 @@ class Watcher(object):
             if meta_item.slug not in old_meta_slugs:
                 meta.append(meta_item)
 
+        if not os.path.exists(self.path):
+            os.mkdir(self.path)
+        
         with open(posts_meta_path, 'wb') as posts_meta:
             for meta_item in meta:
                 meta_writer = csv.writer(posts_meta)
@@ -107,7 +110,7 @@ class Watcher(object):
             if meta_item.slug not in old_meta_slugs:
                 meta.append(meta_item)
                 
-        return [post.slug for post in meta][::-1]
+        return meta[::-1]
     
     def get_changed_posts(self):
         posts_meta_path = os.path.join(self.path, 'posts.csv')
@@ -129,4 +132,29 @@ class Watcher(object):
                     meta_item.mtime = old_meta_item.mtime
                     meta.append(meta_item)
 
-        return [post.slug for post in meta][::-1]
+        return meta[::-1]
+    
+    def get_posts_meta(self, only_changed = False):
+        posts_meta_path = os.path.join(self.path, 'posts.csv')
+        new_meta = self.generate_posts_meta()
+        
+        old_meta = self._read_posts_meta_file()
+        new_meta = sorted(new_meta, key = lambda post: post.mtime)
+        
+        old_meta_slugs = [meta.slug for meta in old_meta]
+        new_meta_slugs = [meta.slug for meta in new_meta]
+        meta = []
+
+        for meta_item in new_meta:
+            if meta_item.slug not in old_meta_slugs:
+                meta.append(meta_item)
+            else:
+                old_meta_item = old_meta[old_meta_slugs.index(meta_item.slug)]
+                if old_meta_item.hash != meta_item.hash:
+                    old_meta_item.hash = meta_item.hash
+                    if only_changed:
+                        meta.append(old_meta_item)
+                if not only_changed:
+                    meta.append(old_meta_item)
+        
+        return sorted(meta, key = lambda post: post.mtime, reverse = True)

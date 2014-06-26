@@ -7,7 +7,9 @@ cwd = os.getcwd()
 blog_config = {
     'title'         : 'Blog Title',
     'author'        : 'Blog Author',
-    'description'   : 'Blog Description'
+    'description'   : 'Blog Description',
+    'url'           : 'http://blog.com',
+    'shortname'     : 'blogname' #disqus comments
 }
 
 config = {
