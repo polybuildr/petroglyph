@@ -14,6 +14,7 @@ Put your posts in the `/posts` directory with a `.md` extension. Each post's tit
 
 ##How to use
 Go to the Petroglyph directory, and
+
 1. Create directory called `blog`
 2. Copy `js` and `css` directories from includable
 3. Run `python petroglyph` to generate the blog
