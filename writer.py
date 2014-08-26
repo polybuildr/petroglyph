@@ -33,16 +33,18 @@ class Writer(object):
         f = open(os.path.join(post_dir, 'index.html'), 'w')
         
         f.write(template.format(blog_title = blog_config['title'],
-                              post_title = post.title,
-                              post_tags = ''.join(['<span href="#" class="tag">#' + tag + '</span>' for tag in post.tags]),
-                              post_content = post.content,
-                              post_date = custom_strftime('{S} %B, %Y', post.date),
-                              head_extras = head_extras,
-                              body_extras = body_extras,
-                              post_url = ''.join([blog_config['url'], post.slug, '/']),
-                              blog_url = blog_config['url'],
-                              post_slug = post.slug,
-                              blog_shortname = blog_config['shortname'] if 'shortname' in blog_config else blog_config['title'].replace(' ','').lower()))
+                            post_title = post.title,
+                            post_tags = ''.join(['<span href="#" class="tag">#' + tag + '</span>' for tag in post.tags]),
+                            post_content = post.content,
+                            post_date = custom_strftime('{S} %B, %Y', post.date),
+                            head_extras = head_extras,
+                            body_extras = body_extras,
+                            post_url = ''.join([blog_config['url'], post.slug, '/']),
+                            blog_url = blog_config['url'],
+                            post_slug = post.slug,
+                            blog_description = blog_config['description'],
+                            blog_author = blog_config['author'],
+                            blog_shortname = blog_config['shortname'] if 'shortname' in blog_config else blog_config['title'].replace(' ','').lower()))
         
     def write_posts(self, posts):
         for post in posts:
