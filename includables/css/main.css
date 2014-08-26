@@ -1,0 +1,145 @@
+body {
+    background-color: #fbfbfb;
+    color: #333;
+    font-size: 15px;
+}
+
+a {
+    text-decoration: none;
+    color: #0087BD;
+}
+
+a:hover {
+    color: darkorange;
+}
+
+h1 a,
+h2 a {
+    color: #4F9BB1;
+}
+
+h1 a:hover,
+h2 a:hover {
+    color: #0087BD;
+    color: #408092;
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: 'Open Sans', sans-serif;
+    margin-bottom: 0.2em;
+}
+
+.container.column {
+    padding: 0 2em;
+    margin-left: 300px;
+}
+
+.container.single {
+    width: 90%;
+    max-width: 840px;
+    margin: auto;
+}
+
+#blog-title {
+    font-size: 48px;
+}
+
+.post {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.15em;
+}
+
+.container.column .post {
+    margin: 2em 1em;
+}
+
+.container.single #blog-title {
+    font-size: 4em;
+    text-align: center;
+}
+
+.container.single {
+    padding-bottom: 1em;
+}
+
+.container.single .post h2.post-title {
+    font-size: 2.5em;
+}
+
+.sidebar-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;
+    height: 100%;
+    background-color: #4F9BB1;
+}
+
+.sidebar-container h1,
+.sidebar-container h2 {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.sidebar {
+    font-size: 1.3em;
+    padding: 1em;
+    font-family: 'Roboto', sans-serif;
+    color: #fff;
+}
+
+.sidebar a {
+    color: #fff;
+}
+
+.post .tag {
+    font-size: 0.8em;
+    color: grey;
+    padding: 0.2em 0.5em;
+    background-color: #eee;
+    border-radius: 2px;
+    margin-right: 5px;
+}
+
+.post a.tag:hover {
+    background-color: #ddd;
+}
+
+.sidebar {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar li {
+    list-style-type: none;
+}
+
+.post strong {
+    font-weight: 500;
+}
+
+#floating-home {
+    display: block;
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: #53a1b8;
+    color: #fff;
+    padding: 0.7em 1em;
+    border-radius: 1px;
+}
+
+@media (max-width: 960px) {
+    #floating-home {
+        position: static;
+    }
+}
+
+pre[class*="language-"] {
+    border-left: 7px solid #4F9BB1;
+}

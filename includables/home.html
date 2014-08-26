@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,600" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,400italic,500' rel='stylesheet' type='text/css'>
+    <title>{blog_title}</title>
+    </head>
+    <body>
+    <div class="sidebar-container">
+        <div class="sidebar">
+            <div class="title-section">
+                <h1 id="blog-title">{blog_title}</h1>
+                <p>{blog_description}</p>
+            </div>
+            <hr>
+            <div class="author-section">
+                <h2>{blog_author}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="container column">
+        {posts}
+    </div>
+    </body>
+</html>
