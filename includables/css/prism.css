@@ -1,4 +1,4 @@
-/* http://prismjs.com/download.html?themes=prism&languages=markup+css+clike+javascript+php+python&plugins=line-numbers */
+/* http://prismjs.com/download.html?themes=prism&languages=markup+css+clike+javascript+php+bash+c+python&plugins=line-numbers */
 /**
  * prism.js default theme for JavaScript, CSS and HTML
  * Based on dabblet (http://dabblet.com)
@@ -15,7 +15,7 @@ pre[class*="language-"] {
 	white-space: pre;
 	word-spacing: normal;
 	word-break: normal;
-
+	line-height: 1.5;
 
 	-moz-tab-size: 4;
 	-o-tab-size: 4;
@@ -91,6 +91,7 @@ pre[class*="language-"] {
 .token.selector,
 .token.attr-name,
 .token.string,
+.token.char,
 .token.builtin {
 	color: #690;
 }
@@ -102,7 +103,7 @@ pre[class*="language-"] {
 .style .token.string,
 .token.variable {
 	color: #a67f59;
-	background: hsla(0,0%,100%,.5);
+	background: hsla(0, 0%, 100%, .5);
 }
 
 .token.atrule,
@@ -111,6 +112,9 @@ pre[class*="language-"] {
 	color: #07a;
 }
 
+.token.function {
+	color: #DD4A68;
+}
 
 .token.regex,
 .token.important {
