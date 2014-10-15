@@ -34,7 +34,7 @@ class Writer(object):
         
         f.write(template.format(blog_title = blog_config['title'],
                             post_title = post.title,
-                            post_tags = ''.join(['<span href="#" class="tag">#' + tag + '</span>' for tag in post.tags]),
+                            post_tags = ''.join(['<span class="tag">#' + tag + '</span>' for tag in post.tags]),
                             post_content = post.content,
                             post_date = custom_strftime('{S} %B, %Y', post.date),
                             head_extras = head_extras,
