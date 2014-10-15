@@ -62,7 +62,7 @@ class Writer(object):
                 more_match = post.content
                 preview = False
             peeks.append(peek_template.format(post_title = post.title,
-                            post_tags = ''.join(['<span href="#" class="tag">#' + tag + '</span>' for tag in post.tags]),
+                            post_tags = ''.join(['<span class="tag">#' + tag + '</span>' for tag in post.tags]),
                             post_content = post.content,
                             post_peek = more_match,
                             post_date = custom_strftime('{S} %B, %Y', post.date),
