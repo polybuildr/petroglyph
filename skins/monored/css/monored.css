@@ -1,0 +1,155 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 18px;
+    font-family: 'Open Sans', sans-serif;
+    background-color: #fcfcfc;
+}
+
+a {
+    color: #D20000;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #F11;
+}
+
+.container {
+    margin: auto;
+}
+
+.container.column {
+    margin-left: 25%;
+    width: 75%;
+}
+
+.sidebar-container {
+    bottom: 0;
+    position: fixed;
+    top: 0;
+    width: 25%;
+    background-color: #D20000;
+    box-shadow: 0 0 3px 3px #aaa;
+}
+
+.sidebar {
+    padding: 1em;
+    color: #fff;
+}
+
+.sidebar p {
+    font-size: 1.2em;
+}
+
+.sidebar hr {
+    border: none;
+    border-top: 1px solid #eee;
+}
+
+.container.column hr {
+    border: none;
+    border-top: 1px solid #666;
+    margin: 0 2em;
+}
+
+.container.column h2,
+.container.column h3 {
+    margin: .3em 0;
+}
+
+.container.single {
+    width: 70%;
+}
+
+.container.single h2 {
+    font-size: 2em;
+}
+
+.container.column .post {
+    margin: 2em;
+}
+
+.container.single #blog-title {
+    text-align: center;
+}
+
+.container.single .post {
+    line-height: 1.45em;
+}
+
+.post .tag {
+    font-size: 0.8em;
+    color: #666;
+    padding: 0.2em 0.5em;
+    background-color: #eee;
+    border-radius: 2px;
+    margin-right: 5px;
+}
+
+#floating-home {
+    display: block;
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: #D20000;
+    color: #fff;
+    padding: 0.7em 1em;
+    border-radius: 1px;
+}
+
+#floating-home:hover {
+    background-color: #F11;
+}
+
+pre[class*="language-"],
+blockquote {
+    border-left: 7px solid #D20000;
+}
+
+.social-plugins div,
+.social-plugins iframe {
+    width: 80px;
+    float: left;
+}
+
+.social-plugins .fb-like {
+    margin-top: -4px;
+}
+
+@media (max-width: 800px) {
+    #floating-home {
+        position: static;
+    }
+
+    .container.column {
+        margin: 0;
+        width: 100%;
+    }
+
+    .container.single {
+        width: 90%;
+    }
+
+    .sidebar-container {
+        padding: 0;
+        position: static;
+        text-align: center;
+        width: 100%;
+    }
+
+    .sidebar {
+        font-size: .8em;
+    }
+
+    .sidebar h1,
+    .sidebar h2 {
+        margin: .2em
+    }
+
+    .container.column .post {
+        margin: 1em 2em;
+    }
+}
