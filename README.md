@@ -49,7 +49,7 @@ Depending on your setup, this could be a different file, such as `~/.profile` or
   ```
 2. Inside this new directory, run `petroglyph init` and fill in the details.
 
-  The default theme is `monoblue`. If you want to use a different skin, run `petroglyph init --skin monopurple`.
+  The default theme is `monoblue`. If you want to use a different skin (`monogreen`, `monopurple` and `monored` included by default), run `petroglyph init --skin SKIN`.
   ```bash
   $ cd awesomeblog
   $ petroglyph init --skin monopurple
