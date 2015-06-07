@@ -33,7 +33,8 @@ There is a script named `petroglyph` in the folder, this is the script you will 
 
 ## Setting up a blog
 
-1. Create a new directory for your blog
+1. Create a new directory for your blog.
+
   ```bash
   $ mkdir awesomeblog
   ```
