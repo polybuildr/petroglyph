@@ -31,6 +31,15 @@ You can download a [stable release from GitHub](https://github.com/polybuildr/pe
 
 There is a script named `petroglyph` in the folder, this is the script you will use to set up your blog. Consider putting this in your `PATH` for ease of use.
 
+On Linux, if using `bash`, you can add a line to your `.bashrc` to do this.
+
+```bash
+$ echo 'export PATH="/path/to/petroglyph:$PATH"' >> ~/.bashrc
+$ source ~/.bashrc
+```
+
+Depending on your setup, this could be a different file, such as `~/.profile` or `~/.bash_profile`.
+
 ## Setting up a blog
 
 1. Create a new directory for your blog.
