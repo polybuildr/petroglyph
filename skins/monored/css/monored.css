@@ -109,6 +109,11 @@ blockquote {
     border-left: 7px solid #D20000;
 }
 
+blockquote {
+    margin-left: 0;
+    padding-left: 1em;
+}
+
 .social-plugins div,
 .social-plugins iframe {
     width: 80px;
