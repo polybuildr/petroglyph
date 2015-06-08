@@ -76,8 +76,8 @@ a:hover {
     text-align: center;
 }
 
-.container.single .post {
-    line-height: 1.45em;
+.container .post
+    line-height: 1.5em;
 }
 
 .post .tag {
