@@ -61,6 +61,7 @@ a:hover {
 }
 
 .container.single {
+    margin-bottom: 5em;
     width: 70%;
 }
 
@@ -112,6 +113,10 @@ blockquote {
 blockquote {
     margin-left: 0;
     padding-left: 1em;
+}
+
+.social-plugins {
+    margin-top: 2em;
 }
 
 .social-plugins div,
