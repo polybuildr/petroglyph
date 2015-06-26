@@ -1,0 +1,2 @@
+recursive-include petroglyph/skins *.html *css *.js
+include petroglyph/README.md

@@ -3,8 +3,8 @@ import shutil
 import re
 
 import yaml
-from post import Post
-import logger
+from petroglyph.post import Post
+from petroglyph import logger
 
 
 def process_template(template, args):

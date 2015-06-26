@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import argparse
 import os
-import logger
+from petroglyph import logger
 
 parser = argparse.ArgumentParser()
 parser.add_argument("command", nargs="?")
@@ -12,7 +12,7 @@ parser.add_argument("--skin", default="monoblue", help="specify the skin to be u
 args = parser.parse_args()
 
 def init():
-    import setup
+    from petroglyph import setup
     setup.init(args.skin)
 
 if args.command is None:
@@ -31,7 +31,7 @@ elif args.command == 'generate':
         else:
             logger.log("Aborting.", logger.ERROR)
     else:
-        import generator
+        from petroglyph import generator
         generator.generate(args.regenerate, args.dry_run)
 else:
     logger.log("Invalid command '%s'." % args.command, logger.ERROR)
