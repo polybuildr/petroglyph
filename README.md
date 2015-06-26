@@ -6,6 +6,21 @@ Petroglyph is a Python-based static blog generator. (Tested on 2.7.6).
 
 ## Installation
 
+Petroglyph is now a pip package! You can install petroglyph by simply doing:
+```bash
+$ sudo pip install petroglyph
+```
+
+If you don't have `pip`, first install pip using your package manager.
+
+```bash
+$ sudo apt-get install python-pip #Ubuntu, etc.
+$ sudo yum install python-pip #Fedora, etc.
+```
+If installing from `pip` doesn't work for you, please [file an issue](https://github.com/polybuildr/petroglyph/issues) and then use the old installation instructions below instead.
+
+### Old installation procedure
+
 To install, first install `mistune` and `pyyaml`.
 
 ```bash
