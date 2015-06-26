@@ -1,5 +1,6 @@
 Petroglyph
 ==========
+[![Build Status](https://travis-ci.org/polybuildr/petroglyph.svg?branch=master)](https://travis-ci.org/polybuildr/petroglyph)
 
 Petroglyph is a a Python-based static blog generator. (Tested on 2.7.6).
 
