@@ -65,7 +65,7 @@ Depending on your setup, this could be a different file, such as `~/.profile` or
   ```
   At any point if you want to replace your skin or change the configuration, run `petroglyph init` again.
 
-3. Write a new post in the `/posts` directory with a `.md` extension. Each post's filename will be used as the post's slug when the blog is generated. Markdown support is provided using [Mistune](https://github.com/lepture/mistune). Include post metadata by writing posts as follows:
+3. Write a new post in the `/posts` directory with a `.md` extension. (reStructuredText is also supported, give the file an `.rst` extension.) Each post's filename will be used as the post's slug when the blog is generated. Markdown support is provided using [Mistune](https://github.com/lepture/mistune). Include post metadata by writing posts as follows:
 
   ```
   ---
