@@ -10,6 +10,6 @@ setup(
     keywords='static blog',
     packages=['petroglyph'],
     install_requires=['mistune', 'pyyaml'],
-    include_package_data = True,
+    include_package_data=True,
     scripts=['petroglyph/petroglyph']
 )
