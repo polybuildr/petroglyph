@@ -5,11 +5,15 @@ import hashlib
 
 class Post:
     def __init__(self, file):
+        if file[-4:] == '.rst':
+            self.text_type = 'rst'
+        else:
+            self.text_type = 'md'
         f = open(file, 'r')
         text = f.read()
         import yaml
         import re
-        match = re.search(r'^\s*---(.*)---\s*(.*)$', text, re.DOTALL | re.MULTILINE)
+        match = re.search(r'^\s*---(.*?)---\s*(.*)$', text, re.DOTALL | re.MULTILINE)
         if match is None:
             raise ValueError("YAML front-matter missing from '%s'." % file)
         self.front_matter = match.group(1)
@@ -45,8 +49,12 @@ class Post:
         return str(self)
 
     def get_html(self):
-        import mistune
-        return mistune.markdown(self.text)
+        if self.text_type == 'rst':
+            from docutils.core import publish_parts
+            return publish_parts(self.text, writer_name='html')['html_body']
+        else:
+            import mistune
+            return mistune.markdown(self.text)
 
     def get_preview(self):
         import re
