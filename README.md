@@ -21,10 +21,10 @@ If installing from `pip` doesn't work for you, please [file an issue](https://gi
 
 ### Old installation procedure
 
-To install, first install `mistune` and `pyyaml`.
+To install, first install `mistune`, `pyyaml` and `docutils`.
 
 ```bash
-$ pip install mistune pyyaml
+$ pip install mistune pyyaml docutils
 ```
 
 If you don't have `pip`, first install pip using your package manager.
