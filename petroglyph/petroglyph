@@ -11,6 +11,7 @@ parser.add_argument("--skin", default="monoblue", help="specify the skin to be u
 
 args = parser.parse_args()
 
+
 def init():
     from petroglyph import setup
     setup.init(args.skin)
