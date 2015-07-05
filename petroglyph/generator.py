@@ -1,6 +1,7 @@
 import os
 import shutil
 import re
+import copy
 
 import yaml
 from petroglyph.post import Post
@@ -71,14 +72,15 @@ def generate(regenerate=False, dry_run=False):
                 'date': post.getmtime(),
                 'content': post.get_html()
             }
-            post_args.update(post.front_matter_data)
+            post_data = copy.deepcopy(post.front_matter_data)
+            post_data.update(post_args)
             if not dry_run:
                 if not new:
                     stats['regenerated_posts'] += 1
                 else:
                     stats['generated_posts'] += 1
                 with open(os.path.join(post.slug, 'index.html'), 'wb') as post_file:
-                    post_file.write(process_template(skin['post'], post_args))
+                    post_file.write(process_template(skin['post'], post_data))
 
     posts.sort(key=lambda p: p.get_time(), reverse=True)
     for post in posts:
@@ -91,8 +93,9 @@ def generate(regenerate=False, dry_run=False):
                 ['<span class="tag">#' + tag + '</span>' for tag in post.tags]
             )
         }
-        post_peek_args.update(post.front_matter_data)
-        post_previews_text.append(process_template(skin['post-peek'], post_peek_args))
+        post_peek_data = copy.deepcopy(post.front_matter_data)
+        post_peek_data.update(post_peek_args)
+        post_previews_text.append(process_template(skin['post-peek'], post_peek_data))
     home_args = {
         'title': config['title'],
         'author': config['author'],
