@@ -117,4 +117,4 @@ Depending on your setup, this could be a different file, such as `~/.profile` or
   > If you ever want to regenerate all your pages (because of a theme change, for example), run `petroglyph --regenerate`.
 
 6. Your blog is ready to be served in the `blog/` directory.
-  ![](http://polybuildr.github.io/petroglyph/screenshot.gif)
+  ![](http://polybuildr.github.io/petroglyph/screenshot.png)
