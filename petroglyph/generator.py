@@ -71,6 +71,7 @@ def generate(regenerate=False, dry_run=False):
                 'date': post.getmtime(),
                 'content': post.get_html()
             }
+            post_args.update(post.front_matter_data)
             if not dry_run:
                 if not new:
                     stats['regenerated_posts'] += 1
@@ -90,6 +91,7 @@ def generate(regenerate=False, dry_run=False):
                 ['<span class="tag">#' + tag + '</span>' for tag in post.tags]
             )
         }
+        post_peek_args.update(post.front_matter_data)
         post_previews_text.append(process_template(skin['post-peek'], post_peek_args))
     home_args = {
         'title': config['title'],
