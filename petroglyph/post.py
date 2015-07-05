@@ -22,6 +22,7 @@ class Post:
             raise ValueError("Empty YAML front-matter in '%s'." % file)
         if 'title' not in config:
             raise ValueError("'%s' does not have title in YAML front-matter." % file)
+        self.front_matter_data = config
         self.title = config['title']
         self.text = match.group(2)
         self.overrides = []
