@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../css/normalize.css">
+    <link rel="stylesheet" href="../../css/monoblue.css">
+    <link href="../../css/prism.css" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600" rel="stylesheet" type="text/css">
+    <title>{{title}}</title>
+    </head>
+    <body>
+        <div class="sidebar-container">
+            <div class="sidebar">
+                <div class="title-section">
+                    <h1 id="blog-title">{{title}}</h1>
+                    <p>{{description}}</p>
+                </div>
+                <hr>
+                <div class="author-section">
+                    <h2>{{author}}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="container column">
+            <h2>Posts with tag <span class="tag">{{tag}}</span></h2>
+            <a href="../../">&lt;&lt; Back to home</a>
+            <hr>
+            {{posts}}
+        </div>
+    <script src="../../js/prism.js"></script>
+    </body>
+</html>

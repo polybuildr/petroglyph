@@ -78,13 +78,18 @@ a:hover {
     line-height: 1.5em;
 }
 
-.post .tag {
+.tag {
     font-size: 0.8em;
     color: #666;
     padding: 0.2em 0.5em;
     background-color: #eee;
     border-radius: 2px;
     margin-right: 5px;
+}
+
+.post a.tag:hover {
+    background-color: #ddd;
+    color: #666;
 }
 
 #floating-home {

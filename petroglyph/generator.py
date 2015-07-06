@@ -31,6 +31,8 @@ def generate(regenerate=False, dry_run=False):
         skin['post-peek'] = f.read()
     with open(os.path.join('skin', 'home.html')) as f:
         skin['home'] = f.read()
+    with open(os.path.join('skin', 'tag.html')) as f:
+        skin['tag'] = f.read()
     if not os.path.isdir('blog'):
         os.mkdir('blog')
     if os.path.exists('.petroglyph-metadata'):
@@ -66,7 +68,8 @@ def generate(regenerate=False, dry_run=False):
             post_args = {
                 'title': post.title,
                 'tags': ''.join(
-                    ['<span class="tag">#' + tag + '</span>' for tag in post.tags]
+                    ['<a href="../tag/' + tag + '" class="tag">#' + tag + '</a>'
+                        for tag in post.tags]
                 ),
                 'blog_title': config['title'],
                 'date': post.getmtime(),
@@ -83,6 +86,7 @@ def generate(regenerate=False, dry_run=False):
                     post_file.write(process_template(skin['post'], post_data))
 
     posts.sort(key=lambda p: p.get_time(), reverse=True)
+    tag_data = {}
     for post in posts:
         post_peek_args = {
             'slug': post.slug,
@@ -90,17 +94,34 @@ def generate(regenerate=False, dry_run=False):
             'date': post.getmtime(),
             'peek': post.get_preview(),
             'tags': ''.join(
-                ['<span class="tag">#' + tag + '</span>' for tag in post.tags]
+                ['<a href="tag/' + tag + '" class="tag">#' + tag + '</a>'
+                    for tag in post.tags]
             )
         }
         post_peek_data = copy.deepcopy(post.front_matter_data)
         post_peek_data.update(post_peek_args)
         post_previews_text.append(process_template(skin['post-peek'], post_peek_data))
+        post_peek_data.update({
+            'tags': ''.join(
+                ['<a href="../../tag/' + tag + '" class="tag">#' + tag + '</a>'
+                    for tag in post.tags]
+            ),
+            'slug': '../../' + post.slug
+        })
+        for tag in post.tags:
+            if tag not in tag_data:
+                tag_data[tag] = []
+            tag_data[tag].append(process_template(skin['post-peek'], post_peek_data))
     home_args = {
         'title': config['title'],
         'author': config['author'],
         'description': config['description'],
         'posts': "\n".join(post_previews_text)
+    }
+    tag_args = {
+        'title': config['title'],
+        'author': config['author'],
+        'description': config['description'],
     }
     if stats['new_posts']:
         logger.log(
@@ -121,6 +142,19 @@ def generate(regenerate=False, dry_run=False):
     if not dry_run and (regenerate or stats['new_posts'] + stats['changed_posts'] > 0):
         with open('index.html', 'wb') as f:
             f.write(process_template(skin['home'], home_args))
+        if not os.path.isdir('tag'):
+            os.mkdir('tag')
+        for tag in tag_data:
+            if not os.path.isdir(os.path.join('tag', tag)):
+                os.mkdir(os.path.join('tag', tag))
+            tag_args.update(
+                {
+                    'tag': '#' + tag,
+                    'posts': "\n".join(tag_data[tag])
+                }
+            )
+            with open(os.path.join('tag', tag, 'index.html'), 'wb') as f:
+                f.write(process_template(skin['tag'], tag_args))
 
     deleted_posts = set(posts_meta).difference(current_posts_slugs)
     stats['deleted_posts'] = len(deleted_posts)
