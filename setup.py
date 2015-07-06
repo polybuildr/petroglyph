@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='petroglyph',
-    version='0.4.0',
+    version='0.4.1',
     description='A static blog generator',
     url='https://github.com/polybuildr/petroglyph',
     author='Vivek Ghaisas',
