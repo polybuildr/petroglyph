@@ -85,7 +85,7 @@ def generate(regenerate=False, dry_run=False):
                 with open(os.path.join(post.slug, 'index.html'), 'wb') as post_file:
                     post_file.write(process_template(skin['post'], post_data))
 
-    posts.sort(key=lambda p: p.get_time(), reverse=True)
+    posts.sort(key=lambda p: (p.get_time(), p.slug), reverse=True)
     tag_data = {}
     for post in posts:
         post_peek_args = {
