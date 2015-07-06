@@ -1,3 +1,11 @@
 language: python
-install: "pip install flake8"
+install: pip install flake8
 script: flake8 --max-line-length=100 .
+deploy:
+  provider: pypi
+  user: polybuildr
+  password:
+    secure: Lu4s4A2UgBBYsDzKBuIYXEgOOX8SsG74JBlSExd/3dG0z8Nu3uG3QxoC2/x017ElIxIlbZJ9pO+hLWojlaIISWcK11w1FuPNb7oLuoEGMa0z3wkx8mPdjyWmbiW37Bhd6norWp84vuzmJ0prrI6a1krtlM2F96/S4XSy2cBrEhs=
+  on:
+    tags: true
+    repo: polybuildr/petroglyph
