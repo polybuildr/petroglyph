@@ -23,6 +23,7 @@ a:hover {
 
 .container.column {
     margin-left: 25%;
+    padding: 2em;
     width: 75%;
 }
 
@@ -52,7 +53,7 @@ a:hover {
 .container.column hr {
     border: none;
     border-top: 1px solid #666;
-    margin: 0 2em;
+    margin: 2em 0;
 }
 
 .container.column h2,
@@ -67,10 +68,6 @@ a:hover {
 
 .container.single h2 {
     font-size: 2em;
-}
-
-.container.column .post {
-    margin: 2em;
 }
 
 .container.single #blog-title {
@@ -143,6 +140,10 @@ blockquote {
         width: 90%;
     }
 
+    .container.single hr {
+        margin: 1em 0;
+    }
+
     .sidebar-container {
         padding: 0;
         position: static;
@@ -157,9 +158,5 @@ blockquote {
     .sidebar h1,
     .sidebar h2 {
         margin: .2em
-    }
-
-    .container.column .post {
-        margin: 1em 2em;
     }
 }
