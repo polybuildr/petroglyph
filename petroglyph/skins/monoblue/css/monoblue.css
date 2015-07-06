@@ -5,7 +5,7 @@
 body {
     font-size: 18px;
     font-family: 'Open Sans', sans-serif;
-    background-color: #fcfcfc;
+    background-color: #fff;
 }
 
 a {
@@ -129,6 +129,21 @@ blockquote {
 
 .social-plugins .fb-like {
     margin-top: -4px;
+}
+
+code {
+    background-color: #f4f4f4;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    color: #333;
+    font-family: 'Ubuntu Mono', Consolas, Monaco, monospace;
+    padding: .1em .2em;
+}
+
+pre code {
+    background-color: transparent;
+    border: none;
+    padding: 0;
 }
 
 @media (max-width: 800px) {
