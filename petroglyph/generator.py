@@ -4,6 +4,7 @@ import re
 import copy
 
 import yaml
+import htmlmin
 from petroglyph.post import Post
 from petroglyph import logger
 
@@ -13,7 +14,8 @@ def process_template(template, args):
     for placeholder in placeholders:
         if placeholder in args:
             template = template.replace('{{' + placeholder + '}}', str(args[placeholder]))
-    return template
+    template = unicode(template, 'utf-8')
+    return htmlmin.minify(template)
 
 
 def generate(regenerate=False, dry_run=False):
