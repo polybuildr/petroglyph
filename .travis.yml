@@ -1,4 +1,5 @@
 language: python
+sudo: false
 install: pip install flake8
 script: flake8 --max-line-length=100 .
 deploy:
