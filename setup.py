@@ -9,7 +9,7 @@ setup(
     license='MIT',
     keywords='static blog',
     packages=['petroglyph'],
-    install_requires=['mistune', 'pyyaml', 'docutils', 'htmlmin'],
+    install_requires=['mistune', 'pyyaml', 'docutils', 'htmlmin', 'jinja2'],
     include_package_data=True,
     scripts=['petroglyph/petroglyph']
 )

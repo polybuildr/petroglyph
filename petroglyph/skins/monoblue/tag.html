@@ -7,26 +7,41 @@
     <link rel="stylesheet" href="../../css/monoblue.css">
     <link href="../../css/prism.css" rel="stylesheet">
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600" rel="stylesheet" type="text/css">
-    <title>{{title}}</title>
+    <title>Posts with tag {{ tag }} | {{ blog.title }}</title>
     </head>
     <body>
         <div class="sidebar-container">
             <div class="sidebar">
                 <div class="title-section">
-                    <h1 id="blog-title">{{title}}</h1>
-                    <p>{{description}}</p>
+                    <h1 id="blog-title">{{ blog.title }}</h1>
+                    <p>{{ blog.description }}</p>
                 </div>
                 <hr>
                 <div class="author-section">
-                    <h2>{{author}}</h2>
+                    <h2>{{ blog.author }}</h2>
                 </div>
             </div>
         </div>
         <div class="container column">
-            <h2>Posts with tag <span class="tag">{{tag}}</span></h2>
+            <h2>Posts with tag <span class="tag">#{{ tag }}</span></h2>
             <a href="../../">&lt;&lt; Back to home</a>
             <hr>
-            {{posts}}
+            {% for post in posts %}
+            <div class="post">
+                <div class="post-title-section">
+                    <h2 class="post-title"><a href="../../{{ post.slug }}">{{ post.title }}</a></h2>
+                    <div class="post-tags">
+                        {% for tag in post.tags %}
+                        <a href="../../tag/{{ tag }}" class="tag">#{{ tag }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+                    <h3 class="post-date">{{ post.date }}</h3>
+                {{ post.peek }}
+                <div><strong><a href="{{ post.slug }}">Read more &gt;&gt;</a></strong></div>
+            </div>
+            <hr>
+            {% endfor %}
         </div>
     <script src="../../js/prism.js"></script>
     </body>
