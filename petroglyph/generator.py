@@ -1,21 +1,20 @@
 import os
 import shutil
-import re
 import copy
 
 import yaml
 import htmlmin
+from jinja2 import Template
 from petroglyph.post import Post
 from petroglyph import logger
 
 
-def process_template(template, args):
-    placeholders = set(re.findall('{{([a-zA-Z][a-zA-Z0-9_-]*)}}', template))
-    for placeholder in placeholders:
-        if placeholder in args:
-            template = template.replace('{{' + placeholder + '}}', str(args[placeholder]))
-    template = unicode(template, 'utf-8')
-    return htmlmin.minify(template)
+def process_template(template_text, args):
+    template = Template(template_text)
+    html = template.render(args)
+    if not isinstance(html, unicode):
+        html = unicode(html, 'utf-8')
+    return htmlmin.minify(html)
 
 
 def generate(regenerate=False, dry_run=False):
@@ -29,8 +28,6 @@ def generate(regenerate=False, dry_run=False):
     skin = {}
     with open(os.path.join('skin', 'post.html'), 'rb') as f:
         skin['post'] = f.read()
-    with open(os.path.join('skin', 'post-peek.html'), 'rb') as f:
-        skin['post-peek'] = f.read()
     with open(os.path.join('skin', 'home.html')) as f:
         skin['home'] = f.read()
     with open(os.path.join('skin', 'tag.html')) as f:
@@ -42,7 +39,6 @@ def generate(regenerate=False, dry_run=False):
             posts_meta = yaml.safe_load(f)
     else:
         posts_meta = {}
-    post_previews_text = []
     os.chdir('blog')
     logger.log("Found %d post%s." % (len(posts), '' if len(posts) == 1 else 's'))
     stats = {}
@@ -51,6 +47,25 @@ def generate(regenerate=False, dry_run=False):
     stats['regenerated_posts'] = 0
     stats['generated_posts'] = 0
     current_posts_slugs = []
+
+    blog = {
+        'title': config['title'],
+        'description': config['description'],
+        'author': config['author'],
+        'posts': []
+    }
+
+    posts.sort(key=lambda p: (p.get_time(), p.slug), reverse=True)
+
+    for post in posts:
+        item = {
+            'title': post.title,
+            'slug': post.slug,
+            'tags': post.tags,
+            'date': post.getmtime(),
+            'peek': post.get_preview()
+        }
+        blog['posts'].append(item)
 
     for post in posts:
         current_posts_slugs.append(post.slug)
@@ -68,14 +83,13 @@ def generate(regenerate=False, dry_run=False):
         if regenerate or new or post_hash != posts_meta[post.slug]['hash']:
             posts_meta[post.slug] = {'mtime': post.mtime, 'hash': post_hash}
             post_args = {
-                'title': post.title,
-                'tags': ''.join(
-                    ['<a href="../tag/' + tag + '" class="tag">#' + tag + '</a>'
-                        for tag in post.tags]
-                ),
-                'blog_title': config['title'],
-                'date': post.getmtime(),
-                'content': post.get_html()
+                'post': {
+                    'title': post.title,
+                    'tags': post.tags,
+                    'date': post.getmtime(),
+                    'content': post.get_html()
+                },
+                'blog': blog
             }
             post_data = copy.deepcopy(post.front_matter_data)
             post_data.update(post_args)
@@ -87,43 +101,23 @@ def generate(regenerate=False, dry_run=False):
                 with open(os.path.join(post.slug, 'index.html'), 'wb') as post_file:
                     post_file.write(process_template(skin['post'], post_data))
 
-    posts.sort(key=lambda p: (p.get_time(), p.slug), reverse=True)
     tag_data = {}
     for post in posts:
-        post_peek_args = {
-            'slug': post.slug,
-            'title': post.title,
-            'date': post.getmtime(),
-            'peek': post.get_preview(),
-            'tags': ''.join(
-                ['<a href="tag/' + tag + '" class="tag">#' + tag + '</a>'
-                    for tag in post.tags]
-            )
-        }
-        post_peek_data = copy.deepcopy(post.front_matter_data)
-        post_peek_data.update(post_peek_args)
-        post_previews_text.append(process_template(skin['post-peek'], post_peek_data))
-        post_peek_data.update({
-            'tags': ''.join(
-                ['<a href="../../tag/' + tag + '" class="tag">#' + tag + '</a>'
-                    for tag in post.tags]
-            ),
-            'slug': '../../' + post.slug
-        })
         for tag in post.tags:
             if tag not in tag_data:
                 tag_data[tag] = []
-            tag_data[tag].append(process_template(skin['post-peek'], post_peek_data))
+            tag_data[tag].append({
+                'title': post.title,
+                'tags': post.tags,
+                'date': post.getmtime(),
+                'peek': post.get_preview(),
+                'slug': post.slug
+            })
     home_args = {
-        'title': config['title'],
-        'author': config['author'],
-        'description': config['description'],
-        'posts': "\n".join(post_previews_text)
+        'blog': blog
     }
     tag_args = {
-        'title': config['title'],
-        'author': config['author'],
-        'description': config['description'],
+        'blog': blog
     }
     if stats['new_posts']:
         logger.log(
@@ -151,8 +145,8 @@ def generate(regenerate=False, dry_run=False):
                 os.mkdir(os.path.join('tag', tag))
             tag_args.update(
                 {
-                    'tag': '#' + tag,
-                    'posts': "\n".join(tag_data[tag])
+                    'tag': tag,
+                    'posts': tag_data[tag]
                 }
             )
             with open(os.path.join('tag', tag, 'index.html'), 'wb') as f:
