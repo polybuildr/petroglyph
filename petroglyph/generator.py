@@ -6,6 +6,7 @@ import yaml
 import htmlmin
 from jinja2 import Template
 from petroglyph.post import Post
+from petroglyph.page import Page
 from petroglyph import logger
 
 
@@ -21,13 +22,25 @@ def generate(regenerate=False, dry_run=False):
     cwd = os.getcwd()
     with open(os.path.join(cwd, 'config.yaml'), 'rb') as f:
         config = yaml.safe_load(f)
+    page_files = [file for file in os.listdir(os.path.join(cwd, 'pages')) if file[0] != '.']
     drafts = [file for file in os.listdir(os.path.join(cwd, 'posts')) if file[0] != '.']
+
+    if set(drafts).intersection(page_files):
+        # TODO: make error more informative
+        raise ValueError("A post and a page cannot have the same file name.")
+
+    pages = []
+    for page_file in page_files:
+        pages.append(Page(file=os.path.join('pages', page_file)))
+
     posts = []
     for draft in drafts:
-        posts.append(Post(file=os.path.join('posts', draft)))
+        posts.append(Post(file=os.path.join(cwd, 'posts', draft)))
     skin = {}
     with open(os.path.join('skin', 'post.html'), 'rb') as f:
         skin['post'] = f.read()
+    with open(os.path.join('skin', 'page.html'), 'rb') as f:
+        skin['page'] = f.read()
     with open(os.path.join('skin', 'home.html')) as f:
         skin['home'] = f.read()
     with open(os.path.join('skin', 'tag.html')) as f:
@@ -39,14 +52,19 @@ def generate(regenerate=False, dry_run=False):
             posts_meta = yaml.safe_load(f)
     else:
         posts_meta = {}
+
     os.chdir('blog')
     logger.log("Found %d post%s." % (len(posts), '' if len(posts) == 1 else 's'))
+    logger.log("Found %d page%s." % (len(pages), '' if len(pages) == 1 else 's'))
+
     stats = {}
     stats['new_posts'] = 0
     stats['changed_posts'] = 0
     stats['regenerated_posts'] = 0
     stats['generated_posts'] = 0
+    stats['generated_pages'] = 0
     current_posts_slugs = []
+    current_pages_slugs = []
 
     blog = {
         'title': config['title'],
@@ -100,6 +118,24 @@ def generate(regenerate=False, dry_run=False):
                     stats['generated_posts'] += 1
                 with open(os.path.join(post.slug, 'index.html'), 'wb') as post_file:
                     post_file.write(process_template(skin['post'], post_data))
+
+    for page in pages:
+        current_pages_slugs.append(page.slug)
+        if not os.path.exists(page.slug):
+            os.mkdir(page.slug)
+        page_args = {
+            'page': {
+                'title': page.title,
+                'content': page.get_html()
+            },
+            'blog': blog
+        }
+        page_data = copy.deepcopy(page.front_matter_data)
+        page_data.update(page_args)
+        if not dry_run:
+            stats['generated_pages'] += 1
+            with open(os.path.join(page.slug, 'index.html'), 'wb') as page_file:
+                page_file.write(process_template(skin['page'], page_data))
 
     tag_data = {}
     for post in posts:
@@ -165,7 +201,7 @@ def generate(regenerate=False, dry_run=False):
         )
 
     if stats['new_posts'] + stats['changed_posts'] + stats['deleted_posts'] == 0:
-        logger.log("No changes to make.")
+        logger.log("No changes to make to posts.")
 
     if not dry_run:
         for deleted_post in deleted_posts:
@@ -192,6 +228,14 @@ def generate(regenerate=False, dry_run=False):
                 if os.path.exists(os.path.join('blog', path)):
                     shutil.rmtree(os.path.join('blog', path))
                 shutil.copytree(os.path.join('skin', path), os.path.join('blog', path))
+        if stats['generated_pages']:
+            logger.log(
+                "Generated %s page%s." % (
+                    stats['generated_pages'],
+                    '' if stats['generated_pages'] == 1 else 's'
+                ),
+                logger.SUCCESS
+            )
     if ((stats['generated_posts'] or stats['regenerated_posts'] or stats['deleted_posts'])
             and not dry_run):
         if stats['generated_posts']:
