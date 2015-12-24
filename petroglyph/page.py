@@ -47,7 +47,7 @@ class Page:
             return publish_parts(self.text, writer_name='html')['html_body']
         else:
             import mistune
-            return mistune.markdown(self.text)
+            return mistune.markdown(self.text, escape=True)
 
     def get_hash(self):
         return hashlib.md5(self.front_matter + self.text).hexdigest()
