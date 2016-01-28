@@ -64,5 +64,10 @@ def init(skin):
         os.mkdir('posts')
     except OSError:
         logger.log("Directory exists.", logger.SUCCESS)
+    logger.log("Creating pages directory...")
+    try:
+        os.mkdir('pages')
+    except OSError:
+        logger.log("Directory exists.", logger.SUCCESS)
     generate_config()
     logger.log("Petroglyph initialized.", logger.SUCCESS)
