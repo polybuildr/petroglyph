@@ -236,8 +236,8 @@ def generate(regenerate=False, dry_run=False):
                 ),
                 logger.SUCCESS
             )
-    if ((stats['generated_posts'] or stats['regenerated_posts'] or stats['deleted_posts'])
-            and not dry_run):
+    if ((stats['generated_posts'] or stats['regenerated_posts'] or stats['deleted_posts']) and
+            not dry_run):
         if stats['generated_posts']:
             logger.log(
                 "Generated %s new post%s." % (

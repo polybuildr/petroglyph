@@ -7,9 +7,9 @@ def generate_config():
     logger.log("Configuring settings...")
     if os.path.exists('config.yaml'):
         logger.log(
-            "The file "
-            + os.path.join(os.getcwd(), "config.yaml")
-            + " already exists.",
+            "The file " +
+            os.path.join(os.getcwd(), "config.yaml") +
+            " already exists.",
             logger.WARNING
         )
         print "Would you like to replace it? (y/n)",
@@ -44,9 +44,9 @@ def init(skin):
         shutil.copytree(os.path.join(petroglyph_root, 'skins', skin), 'skin')
     except OSError:
         logger.log(
-            "The path "
-            + os.path.join(os.getcwd(), 'skin')
-            + " already exists.",
+            "The path " +
+            os.path.join(os.getcwd(), 'skin') +
+            " already exists.",
             logger.WARNING
         )
         print "Would you like to replace it? (y/n)",
